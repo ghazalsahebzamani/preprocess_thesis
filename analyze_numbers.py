@@ -9,6 +9,3 @@ for i in range(312):
         new_dist_arr[i]=float(dist_arr[i])
 
     print(new_dist_arr)
-
-
-    # print("hi")
