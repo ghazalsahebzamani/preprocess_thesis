@@ -13,8 +13,6 @@ counter=0
 file_counter=0
 WRITE_COUNT=1
 f=open('/media/ghazal/New Volume/sorted_measurements2.txt',"w+")
-# ds = pydicom.dcmread('/media/ghazal/01D176301231DAE0/depth for blob/007_1.2.840.113619.2.185.2838.1343722344.0.10.512.dcm')
-# name='1.2.840.113619.2.98.1539.1285740630.0.1007.512'
 mycursor = mydb.cursor()
 for filename in os.listdir('/media/ghazal/01D176301231DAE0/GT mat files'):
     if filename.endswith('.mat'):
@@ -32,19 +30,16 @@ for filename in os.listdir('/media/ghazal/01D176301231DAE0/GT mat files'):
         params = {'value': InstanceIDK}
         mycursor.execute("SELECT * FROM A_MeasGraphic where InstanceIdk=%(value)s", params)
         myresult2 = mycursor.fetchall()
-
         mycursor.execute("SELECT * FROM A_MeasPoint where InstanceIdk=%(value)s", params)
         myresult3 = mycursor.fetchall()
         frame_list=[]
         for x in myresult2:
             frame_list.append(x[2])
             unique_frame_list=list(set(frame_list))
-
         for i in range(len(unique_frame_list)):
             f.write(name)
             f.write(",")
             f.write(str(unique_frame_list[i]))
-
             mglist = []
             for x in myresult2:
                 if(x[2]==unique_frame_list[i]):
@@ -65,11 +60,6 @@ for filename in os.listdir('/media/ghazal/01D176301231DAE0/GT mat files'):
                 f.close()
                 f = open('/media/ghazal/New Volume/sorted_measurements2.txt', "a+")
 f.close()
-
-
-
-        # params = {'value1': InstanceIDK, 'value2':}
-
 
 
 
