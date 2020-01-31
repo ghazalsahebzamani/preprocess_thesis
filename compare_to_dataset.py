@@ -18,7 +18,6 @@ for i in range(394):
     arr=f.readline().split(',')
     name=arr[0][:]
     ind=find(name,'_')[-1]
-    # print(name)
     name=name[0:ind-10]
     dcm_filename = name + '.dcm'
     mat_filename = name + '.mat'
@@ -37,14 +36,7 @@ for i in range(394):
     day = date[6:]
     date_str = year + '-' + month + '-' + day
     mycursor = mydb.cursor()
-
-    # mycursor.execute("SELECT * FROM exam where (HospID='00561967' OR Patient_ID='00561967') AND DateOfStudy=$date_str  ")
     mycursor.execute("SELECT * FROM exam where (HospID=%s OR Patient_ID=%s) AND DateOfStudy=%s", (id, id, date_str))
     myresult = mycursor.fetchall()
-
     for x in myresult:
         print(x)
-
-
-    # print(ind[-1])
-    # print(len(arr[1:]))
