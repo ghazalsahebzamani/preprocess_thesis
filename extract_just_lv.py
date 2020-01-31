@@ -34,15 +34,4 @@ for filename in os.listdir('/media/ghazal/New Volume/Sorted_Heart/LV'):
                     f.close()
                     break
         temp=name
-
-# f.close()
 f2.close()
-
-    # name = arr[0][:]
-    # dcm_filename = name + '.dcm'
-    # mat_filename = name + '.mat'
-    #
-    # if os.path.isfile('/media/ghazal/01D176301231DAE0/depth for blob/'+ dcm_filename):
-    #     ds = pydicom.dcmread('/media/ghazal/01D176301231DAE0/depth for blob/'+dcm_filename)
-    #     id = ds.PatientID
-    #     date = ds.StudyDate
