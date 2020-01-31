@@ -14,9 +14,6 @@ counter=0
 file_counter=0
 WRITE_COUNT=1
 pss=[]
-# f=open('/media/ghazal/New Volume/sorted_measurements_with_depth.txt',"w+")
-# ds = pydicom.dcmread('/media/ghazal/01D176301231DAE0/depth for blob/007_1.2.840.113619.2.185.2838.1343722344.0.10.512.dcm')
-# name='1.2.840.113619.2.98.1539.1285740630.0.1007.512'
 mycursor = mydb.cursor()
 for filename in os.listdir('/media/ghazal/01D176301231DAE0/GT mat files'):
     if filename.endswith('.mat'):
@@ -32,33 +29,8 @@ for filename in os.listdir('/media/ghazal/01D176301231DAE0/GT mat files'):
 
         x_unit = 1
         y_unit = 1
-        # if os.path.isfile('/media/ghazal/01D176301231DAE0/depth for blob/' + dcm_filename):
-        #     depth_dcm = pydicom.dcmread('/media/ghazal/01D176301231DAE0/depth for blob/' + dcm_filename)
-        #     # dcminfo=depth_dcm.Se
-        #     # ct1=ct1+1
-        #     # print("hi")
-        #     dd = depth_dcm.SequenceOfUltrasoundRegions
-        #     if (dd[0].PhysicalUnitsXDirection == 4):
-        #         x_unit = 0.1
-        #
-        #     if (dd[0].PhysicalUnitsYDirection == 4):
-        #         y_unit = 0.1
-        #     delta_x = dd[0].PhysicalDeltaX * x_unit
-        #     delta_y = dd[0].PhysicalDeltaY * y_unit
-        # else:
-        #     depth_dcm = sio.loadmat('/media/ghazal/01D176301231DAE0/depth for blob/' + mat_filename)
-        #     dcm_info = depth_dcm['Patient'][0, 0]['DicomInfo'][0, 0]['SequenceOfUltrasoundRegions'][0, 0]['Item_1'][
-        #         0, 0]
-        #     if (dcm_info['PhysicalUnitsXDirection'][0, 0] == 4):
-        #         x_unit = 0.1
-        #     if (dcm_info['PhysicalUnitsYDirection'][0, 0] == 4):
-        #         Y_unit = 0.1
-        #     delta_x = dcm_info['PhysicalDeltaX'][0, 0] * x_unit
-        #     delta_y = dcm_info['PhysicalDeltaY'][0, 0] * y_unit
-
 
         params = {'value': name}
-        # mycursor.execute("SELECT * FROM exam where (HospID='00561967' OR Patient_ID='00561967') AND DateOfStudy=$date_str  ")
         mycursor.execute("SELECT * FROM A_Instance where SOPInstanceUID=%(value)s", params)
         myresult = mycursor.fetchall()
         InstanceIDK=myresult[0][0]
@@ -74,10 +46,6 @@ for filename in os.listdir('/media/ghazal/01D176301231DAE0/GT mat files'):
             unique_frame_list=list(set(frame_list))
 
         for i in range(len(unique_frame_list)):
-            # f.write(full_name)
-            # f.write(",")
-            # f.write(str(unique_frame_list[i]))
-
             mglist = []
             for x in myresult2:
                 if(x[2]==unique_frame_list[i]):
@@ -88,26 +56,8 @@ for filename in os.listdir('/media/ghazal/01D176301231DAE0/GT mat files'):
                 for xx in myresult3:
                     if xx[1]==mglist[j]:
                         pss.append(xx[2])
-
-                        # ps_x.append(xx[3])
-                        # ps_y.append(xx[4])
-            #     f.write(",")
             pss=list(dict.fromkeys(pss))
             print(pss)
-
-            #     dist=np.sqrt((delta_y*(ps_y[0]-ps_y[1]))**2+(delta_x*(ps_x[0]-ps_x[1]))**2)
-            #     f.write(str(dist))
-            # f.write('\n')
-#             counter=counter+1
-#             if(counter%WRITE_COUNT==0):
-#                 f.close()
-#                 f = open('/media/ghazal/New Volume/sorted_measurements_with_depth.txt', "a+")
-# f.close()
-
-
-
-        # params = {'value1': InstanceIDK, 'value2':}
-
 
 
 
