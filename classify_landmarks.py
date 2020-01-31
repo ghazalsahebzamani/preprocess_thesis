@@ -76,44 +76,28 @@ def my_interface(name,mes, found_lands,frame,arr_len):
         col_num = 0
         for y in x:
             if (y != None) and (type(y) != str) and (y != 1) and type(y) != datetime.datetime and (type(y) != int):
-
-                # print('y: ', y)
-                #
-                # print('col_num: ', col_num)
-                # print(field_names[col_num])
-
                 if col_num==167:
                     d[0]=np.abs(float(y)-mes)
                 elif col_num==208:
-                    # f2.write('LVD')
-
                     d[1]=np.abs(float(y)-mes)
                 elif col_num==213:
-                    # f2.write('LVS')
                     d[2]=np.abs(float(y) - mes)
                 elif col_num==282:
-                    # f2.write('PWD,')
                     d[3]=np.abs(float(y)-mes)
                 elif col_num==296:
-                    # f2.write('ROOT,')
                     d[4]=np.abs(float(y) - mes)
                 elif col_num==178:
-                    # f2.write('LA,')
                     d[5]=np.abs(float(y)-mes)
                 elif col_num==61:
-                    # f2.write('LA,')
                     d[6]=np.abs(float(y)-mes)
                 elif col_num==170:
-                    # f2.write('LA,')
                     d[8]=np.abs(float(y)-mes)
                 elif col_num==339:
                     d[7]=np.abs(float(y)-mes)
-
             col_num = col_num + 1
     proposal_count = 0
     ambig_list = []
     for ii in range(len(d)):
-
         if d[ii] is not None:
             b.append(d[ii])
             if d[ii]<2.8:
@@ -135,8 +119,6 @@ def my_interface(name,mes, found_lands,frame,arr_len):
     for ii in range(len(d)):
         if d[ii]==min_b:
             found_lands.append(ii)
-            # f2.write(types_dict[ii])
-            # f2.write(',')
             break
     if proposal_count>1 and margin<0.5:
         print("frame:",frame)
@@ -144,14 +126,6 @@ def my_interface(name,mes, found_lands,frame,arr_len):
             print('multi ambig list at:', ambig_list)
             print("name:",name)
             print("found :", found_lands)
-        # if 7 in ambig_list and 1 in ambig_list:
-        #     if (0 in found_lands[:-1] or 3 in found_lands[:-1]):
-        #         found_lands[-1]=1
-        #         ambig_list.remove(7)
-        #     else:
-        #         print("one ambig error for patient: ", name)
-        #         print("found:", found_lands)
-        #         print("ambig:", ambig_list)
         if 7 in ambig_list and 4 in ambig_list:
             if (0 in found_lands[:-1] or 3 in found_lands[:-1] or 1 in found_lands[:-1]):
                 found_lands[-1]=7
@@ -160,13 +134,7 @@ def my_interface(name,mes, found_lands,frame,arr_len):
                 print("one ambig error for patient: ", name)
                 print("found:", found_lands)
                 print("ambig:", ambig_list)
-
-
-        # if ambig_list == [1, 8]:
         if 1 in ambig_list and 8 in ambig_list:
-            # lvs_ind = find(found_lands, 2)
-            # if len(lvs_ind) > 0:
-            #     found_lands[-1] = 8
             if 2 in found_lands[:-1]:
                 found_lands[-1]=8
             elif 0 in found_lands or 3 in found_lands:
@@ -175,21 +143,7 @@ def my_interface(name,mes, found_lands,frame,arr_len):
                 print("one ambig error for patient: ", name)
                 print("found:", found_lands)
                 print("ambig:", ambig_list)
-        # elif ambig_list==[1,7]:
-        #     ivsd_ind=find(found_lands, 0)
-        #     pwd_ind = find(found_lands, 3)
-        #     if len(ivsd_ind) > 0 or len(pwd_ind) > 0:
-        #         found_lands[-1] = 1
-        #     else:
-        #         print("one ambig error for patient: ", name)
-        #         print("found:", found_lands)
-        #         print("ambig:", ambig_list)
-
-        # elif ambig_list == [6, 8]:
         elif 6 in ambig_list and 8 in ambig_list:
-            # lvs_ind = find(found_lands, 2)
-            # lvd_ind = find(found_lands, 1)
-            # if len(lvs_ind) > 0:
             if 2 in found_lands[:-1]:
 
                 found_lands[-1] = 8
@@ -200,7 +154,6 @@ def my_interface(name,mes, found_lands,frame,arr_len):
                 print("one ambig error for patient: ", name)
                 print("found:", found_lands)
                 print("ambig:", ambig_list)
-        # elif ambig_list == [2, 8]:
         elif 7 in ambig_list and 8 in ambig_list:
             if 2 in found_lands[:-1]:
 
@@ -213,8 +166,6 @@ def my_interface(name,mes, found_lands,frame,arr_len):
                 print("ambig:", ambig_list)
 
         elif 2 in ambig_list and 8 in ambig_list:
-            # lvs_ind = find(found_lands, 2)
-            # lvd_ind = find(found_lands, 1)
             if 2 in found_lands[:-1]:
 
                 found_lands[-1] = 8
@@ -222,37 +173,18 @@ def my_interface(name,mes, found_lands,frame,arr_len):
                 print("one ambig error for patient: ", name)
                 print("found:", found_lands)
                 print("ambig:", ambig_list)
-            # elif len(lvd_ind) > 0:
-            #
-            #     found_lands[-1] = 6
-
-
-
-
         elif len(set(found_lands))<len(found_lands):
-            # print('multi error for patient: ', name)
-            # for ii in range(len(d)):
-            #     if d[ii] is not None and d[ii]<1.5:
-            #         # print(types_dict[ii])
-            #         ambig_list.append(ii)
             if 0 in ambig_list and 3 in ambig_list:
                 if 0 in found_lands[:-1]:
                     indcs=find(found_lands,0)
                 elif 3 in found_lands[:-1]:
                     indcs=find(found_lands,3)
-                # if len(indcs)>0:
                 ind1=indcs[0]
                 ind2=indcs[1]
                 coord_list=find_coords(name,frame,arr_len)
                 indcs=solve_ivsd_pwd_ambig(coord_list,ind1,ind2)
                 found_lands[ind1]=indcs[0]
                 found_lands[ind2] = indcs[1]
-
-            # if len(ambig_list>0):
-            #     print('multi error for patient: ', name)
-            #     print(ambig_list)
-
-
             elif arr_len>1:
                 print("one ambig error for patient: ", name)
                 print("found:",found_lands)
@@ -263,68 +195,7 @@ def my_interface(name,mes, found_lands,frame,arr_len):
             print('found lands',found_lands)
             print('name', name)
             print('frame,', frame)
-    # if arr_len==1:
-    #     print("possible lvot!!!")
-    #     print(name)
-    #     print(d)
-    #     print(found_lands)
-
-
-        # for x in myresult:
-        #     col_num = 0
-        #     for y in x:
-        #         if (y != None) and (type(y) != str) and (y != 1) and type(y) != datetime.datetime and (
-        #                 type(y) != int):
-        #             #
-        #             print('y: ', y)
-        #
-        #             print('col_num: ', col_num)
-        #             print(field_names[col_num])
-        #
-        #             # if col_num == 167:
-        #             #     d[0] = np.abs(float(y) - mes)
-        #             # elif col_num == 208:
-        #             #     # f2.write('LVD')
-        #             #
-        #             #     d[1] = np.abs(float(y) - mes)
-        #             # elif col_num == 213:
-        #             #     # f2.write('LVS')
-        #             #     d[2] = np.abs(float(y) - mes)
-        #             # elif col_num == 282:
-        #             #     # f2.write('PWD,')
-        #             #     d[3] = np.abs(float(y) - mes)
-        #             # elif col_num == 296:
-        #             #     # f2.write('ROOT,')
-        #             #     d[4] = np.abs(float(y) - mes)
-        #             # elif col_num == 178:
-        #             #     # f2.write('LA,')
-        #             #     d[5] = np.abs(float(y) - mes)
-        #             # elif col_num == 61:
-        #             #     # f2.write('LA,')
-        #             #     d[6] = np.abs(float(y) - mes)
-        #             # elif col_num == 170:
-        #             #     # f2.write('LA,')
-        #             #     d[8] = np.abs(float(y) - mes)
-        #             # else:
-        #             #
-        #             #     print('y: ', y)
-        #             #
-        #             #     # print('col_num: ', col_num)
-        #             #     print(field_names[col_num])
-        #
-        #         col_num = col_num + 1
-
     return found_lands
-
-
-
-
-
-
-
-
-
-
 for i in range(109):
     found_lands=[]
     arr = f0.readline().split(',')
@@ -335,8 +206,6 @@ for i in range(109):
     f2.write(',')
     arr_len=len(arr)-2
     frame=arr[1]
-    # if name=="007_1.2.840.113619.2.297.50323.1443432953.0.11.512":
-    #     print("bug!")
     for j in range(2,len(arr)):
         mes=float(arr[j])*10
         found_lands=my_interface(name,mes,found_lands,frame,arr_len)
@@ -345,21 +214,6 @@ for i in range(109):
             f2.write(types_dict[found_lands[k]])
             f2.write(',')
     f2.write('\n')
-# name='001_1.2.840.113619.2.185.2838.1295252536.0.740.512'
-# mes=1.10182397683*10
-# my_interface(name,mes)
-#
-#
-# mes=3.75156153569*10
-# my_interface(name,mes)
-#
-#
-# mes=1.10182397683*10
-# my_interface(name,mes)
-#
-#
-# mes=2.92947738992*10
-# my_interface(name,mes)
 f.close()
 f0.close()
 f2.close()
