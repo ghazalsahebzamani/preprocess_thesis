@@ -17,19 +17,14 @@ month=date[4:6]
 day=date[6:]
 date_str=year+'-'+month+'-'+day
 mycursor = mydb.cursor()
-
-# mycursor.execute("SELECT * FROM exam where (HospID='00561967' OR Patient_ID='00561967') AND DateOfStudy=$date_str  ")
 mycursor.execute("SELECT * FROM exam where (HospID=%s OR Patient_ID=%s) AND DateOfStudy=%s", (id,id,date_str))
 myresult = mycursor.fetchall()
 col_num=0
 
 for x in myresult:
-  # print(type(x))
   print(x)
   for y in x:
     if (y!=None) and (type(y)!=str) and (y!=1) and type(y)!=datetime.datetime and (type(y)!=int):
-            # (col_num!=111)\
-            # and (col_num!=137):
       print('y: ',y)
       print('type y:, ',type(y))
       print('col_num: ', col_num)
