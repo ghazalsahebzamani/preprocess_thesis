@@ -15,7 +15,6 @@ for i in range(109):
     name=arr[0][:]
     frame=arr[1]
 
-
     for j in range(2,len(arr)-1):
         f_cent = open('/media/ghazal/New Volume/extracted_pairs.txt', "r")
         for k in range(1136):
@@ -71,12 +70,6 @@ for i in range(109):
                 f_8.write(arr_1[ind])
                 if ind!=len(arr_1)-1:
                     f_8.write(',')
-        # f_6.write(',')
-            # f_6.write(frame)
-            # f_6.write(',')
-            # for ind in range(2,len(arr_1)):
-            #     f_6.write(arr_1)
-
 f.close()
 f_0.close()
 f_1.close()
