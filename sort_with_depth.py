@@ -14,8 +14,6 @@ counter=0
 file_counter=0
 WRITE_COUNT=1
 f=open('/media/ghazal/New Volume/sorted_measurements_with_depth.txt',"w+")
-# ds = pydicom.dcmread('/media/ghazal/01D176301231DAE0/depth for blob/007_1.2.840.113619.2.185.2838.1343722344.0.10.512.dcm')
-# name='1.2.840.113619.2.98.1539.1285740630.0.1007.512'
 mycursor = mydb.cursor()
 for filename in os.listdir('/media/ghazal/01D176301231DAE0/GT mat files'):
     if filename.endswith('.mat'):
@@ -25,21 +23,15 @@ for filename in os.listdir('/media/ghazal/01D176301231DAE0/GT mat files'):
         ind=filename.find('_')
         full_name=filename[:-10]
         name=filename[ind+1:-10]
-
         dcm_filename = full_name + '.dcm'
         mat_filename = full_name + '.mat'
-
         x_unit = 1
         y_unit = 1
         if os.path.isfile('/media/ghazal/01D176301231DAE0/depth for blob/' + dcm_filename):
             depth_dcm = pydicom.dcmread('/media/ghazal/01D176301231DAE0/depth for blob/' + dcm_filename)
-            # dcminfo=depth_dcm.Se
-            # ct1=ct1+1
-            # print("hi")
             dd = depth_dcm.SequenceOfUltrasoundRegions
             if (dd[0].PhysicalUnitsXDirection == 4):
                 x_unit = 0.1
-
             if (dd[0].PhysicalUnitsYDirection == 4):
                 y_unit = 0.1
             delta_x = dd[0].PhysicalDeltaX * x_unit
@@ -54,17 +46,13 @@ for filename in os.listdir('/media/ghazal/01D176301231DAE0/GT mat files'):
                 Y_unit = 0.1
             delta_x = dcm_info['PhysicalDeltaX'][0, 0] * x_unit
             delta_y = dcm_info['PhysicalDeltaY'][0, 0] * y_unit
-
-
         params = {'value': name}
-        # mycursor.execute("SELECT * FROM exam where (HospID='00561967' OR Patient_ID='00561967') AND DateOfStudy=$date_str  ")
         mycursor.execute("SELECT * FROM A_Instance where SOPInstanceUID=%(value)s", params)
         myresult = mycursor.fetchall()
         InstanceIDK=myresult[0][0]
         params = {'value': InstanceIDK}
         mycursor.execute("SELECT * FROM A_MeasGraphic where InstanceIdk=%(value)s", params)
         myresult2 = mycursor.fetchall()
-
         mycursor.execute("SELECT * FROM A_MeasPoint where InstanceIdk=%(value)s", params)
         myresult3 = mycursor.fetchall()
         frame_list=[]
@@ -97,10 +85,6 @@ for filename in os.listdir('/media/ghazal/01D176301231DAE0/GT mat files'):
                 f.close()
                 f = open('/media/ghazal/New Volume/sorted_measurements_with_depth.txt', "a+")
 f.close()
-
-
-
-        # params = {'value1': InstanceIDK, 'value2':}
 
 
 
